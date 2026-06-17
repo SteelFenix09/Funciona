@@ -4,6 +4,16 @@ const datos = [
     { titulo: 'Node.js y MongoDB', categoria: 'Desarrollo', esGratis: true, tieneCertificado: true },
     { titulo: 'Figma para Principiantes', categoria: 'Diseño', esGratis: false, tieneCertificado: false }
 ]
+//reglas
+const cusroDesarrollo = datos=>datos.categoria === "Desarrollo"
+const cursoCertificado = datos=>datos.tieneCertificado === true
+
+//combinaciones de hechos
+const desarrolloAndCertificado = datos => cusroDesarrollo(datos) && cursoCertificado(datos)
+
+//consultas
+const resultado = datos.filter(desarrolloAndCertificado)
+console.log(resultado);
 
 const datDesarollo = datos.filter(curso => curso.categoria === "Desarrollo" && curso.tieneCertificado === true)
 //console.log(datDesarollo);
@@ -56,4 +66,4 @@ function hijosJu(suj){
     const esPadre = Hechos.filter(he => he.padre === suj).map(he => he.hijo)
     return esPadre
 }
-console.log(hijosJu("Juan"));
+//console.log(hijosJu("Juan"));
