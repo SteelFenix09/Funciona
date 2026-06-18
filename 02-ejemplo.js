@@ -5,27 +5,25 @@ const datos = [
     { titulo: 'Figma para Principiantes', categoria: 'Diseño', esGratis: false, tieneCertificado: false }
 ]
 //reglas
-const cusroDesarrollo = datos=>datos.categoria === "Desarrollo"
-const cursoCertificado = datos=>datos.tieneCertificado === true
+const esDesarrollo = r => r.categoria === 'Desarrollo'
+const conCertificado = r => r.tieneCertificado === true
+const esGratis = r => r.esGratis === true
+const esDiseño = r => r.categoria === 'Diseño'
+const sinCertificado = r => r.tieneCertificado === false
 
-//combinaciones de hechos
-const desarrolloAndCertificado = datos => cusroDesarrollo(datos) && cursoCertificado(datos)
+//combinacion
 
-//consultas
-const resultado = datos.filter(desarrolloAndCertificado)
-console.log(resultado);
+const DesarrolloCertificado = r => esDesarrollo(r) && conCertificado(r)
+const gratisODiseño = r => esGratis(r) || esDiseño(r)
+const cursoSinCertificado = r => sinCertificado(r)
+const cursoDesarrollo = r => esDesarrollo(r) && (conCertificado(r) || esGratis(r))
 
-const datDesarollo = datos.filter(curso => curso.categoria === "Desarrollo" && curso.tieneCertificado === true)
-//console.log(datDesarollo);
+//Consultas
 
-const datCurso = datos.filter(curso => curso.esGratis === true || curso.categoria === "Diseño")
-//console.log(datCurso);
-
-const datCertificado = datos.filter(curso => curso.tieneCertificado === false)
-//console.log(datCertificado);
-
-const datCu = datos.filter(curso => curso.categoria === "Desarrollo" && (curso.esGratis === true || curso.tieneCertificado === true))
-//console.log(datCu);
+//console.log(datos.filter(DesarrolloCertificado));
+//console.log(datos.filter(gratisODiseño));
+//console.log(datos.filter(cursoSinCertificado));
+//console.log(datos.filter(cursoDesarrollo));
 
 
 const Hechos = [
@@ -34,36 +32,14 @@ const Hechos = [
     { padre: 'Abraham', hijo: 'Juan' },
 ]
 
-const hijo = Hechos.filter(he => he.padre === "Juan").map(he => he.hijo)
-//console.log(hijo);    
+//reglas
 
-// RESOLVER: A es abuelo de C si A es padre de B y B es padre de C
-const nietos = (abuelo, dato)=>{
-    const hijoAbu = dato.filter(he => he.padre === abuelo).map(he => he.hijo)
-    return dato.filter(he => hijoAbu.includes(he.padre)).map(he => he.hijo)
-}
-
-//console.log(nietos("Abraham", Hechos));
+const hijos = (a,b) => b.filter(h => h.padre === a).map(h => h.hijo)
+const nietos = (a,b) => hijos(a,b).flatMap(r => hijos(r, b))
 
 
 
-//1
-function padre(sujeto, hijo){
-    const padre = Hechos.some(he => he.padre === sujeto && he.hijo === hijo)
-    return padre
-}
-//console.log(padre("Abraham", "Juan"));
+console.log(hijos('Juan', Hechos));
 
-//2
-function padreLu(suj){
-    const esPadre = Hechos.filter(he => he.hijo === suj).map(he => he.padre)
-    return esPadre
-}
-//console.log(padreLu("Luis"));
+console.log(nietos('Abraham', Hechos));
 
-//3
-function hijosJu(suj){
-    const esPadre = Hechos.filter(he => he.padre === suj).map(he => he.hijo)
-    return esPadre
-}
-//console.log(hijosJu("Juan"));
