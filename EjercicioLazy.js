@@ -28,7 +28,7 @@ const alertas = filtrarAlerta(transacciones, alertaFraude)
 //console.log("Alerta No.2: ",alertas.next().value);
 
 /*Ejercicio 2. Admisión universitaria.*/
-const aspirantes = Object.freeze([
+ const aspirantes = Object.freeze([
     { nombre: 'Luis', examen: 90, entrevista: 80, estudioSocioeconomico: true },
     { nombre: 'Elena', examen: 70, entrevista: 90, estudioSocioeconomico: true },
     { nombre: 'Pedro', examen: 95, entrevista: 90, estudioSocioeconomico: false },
